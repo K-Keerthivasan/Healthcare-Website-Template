@@ -85,29 +85,34 @@ export function BookingFlow() {
   const back = () => setStep((current) => Math.max(current - 1, 0));
 
   return (
-    <div className="surface overflow-hidden">
-      <div className="border-b border-teal-100 bg-linear-to-r from-teal-50 to-white px-6 py-6 sm:px-8">
-        <div className="grid gap-3 md:grid-cols-5">
+    <div className="surface overflow-hidden dark:border-slate-700/60 dark:bg-slate-900/80">
+      {/* Step indicator */}
+      <div className="border-b border-teal-100 bg-linear-to-r from-teal-50 to-white px-6 py-6 sm:px-8 dark:border-teal-900/50 dark:from-teal-950/40 dark:to-slate-900">
+        <ol className="grid gap-3 md:grid-cols-5" aria-label="Booking steps">
           {steps.map((label, index) => {
             const active = index === step;
             const complete = index < step;
             return (
-              <div key={label} className="flex items-center gap-3">
+              <li key={label} className="flex items-center gap-3">
                 <div
+                  aria-current={active ? "step" : undefined}
                   className={cn(
                     "flex size-10 items-center justify-center rounded-full border text-sm font-bold",
                     active || complete
-                      ? "border-teal-700 bg-teal-700 text-white"
-                      : "border-slate-200 bg-white text-slate-400",
+                      ? "border-teal-700 bg-teal-700 text-white dark:border-teal-500 dark:bg-teal-600"
+                      : "border-slate-200 bg-white text-slate-400 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-500",
                   )}
                 >
                   {index + 1}
                 </div>
-                <div className="text-sm font-semibold text-slate-600">{label}</div>
-              </div>
+                <div className={cn(
+                  "text-sm font-semibold",
+                  active || complete ? "text-teal-800 dark:text-teal-300" : "text-slate-400 dark:text-slate-500",
+                )}>{label}</div>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </div>
 
       <form
@@ -169,11 +174,11 @@ export function BookingFlow() {
             {step === 2 ? (
               <StepCard
                 title="Pick a date and time"
-                description="Choose a time window that works for your schedule."
+                description="Choose a time window that works for your schedule. Dates shown reflect available slots."
               >
                 <div className="grid gap-8 lg:grid-cols-2">
-                  <div>
-                    <div className="mb-3 text-sm font-semibold text-slate-500 uppercase">Dates</div>
+                  <fieldset>
+                    <legend className="mb-3 text-sm font-semibold text-slate-500 uppercase tracking-wider dark:text-slate-400">Available dates</legend>
                     <div className="grid gap-3">
                       {dateOptions.map((item) => (
                         <SelectablePill
@@ -185,9 +190,9 @@ export function BookingFlow() {
                         </SelectablePill>
                       ))}
                     </div>
-                  </div>
-                  <div>
-                    <div className="mb-3 text-sm font-semibold text-slate-500 uppercase">Times</div>
+                  </fieldset>
+                  <fieldset>
+                    <legend className="mb-3 text-sm font-semibold text-slate-500 uppercase tracking-wider dark:text-slate-400">Available times</legend>
                     <div className="grid grid-cols-2 gap-3">
                       {timeOptions.map((item) => (
                         <SelectablePill
@@ -199,7 +204,7 @@ export function BookingFlow() {
                         </SelectablePill>
                       ))}
                     </div>
-                  </div>
+                  </fieldset>
                 </div>
               </StepCard>
             ) : null}
@@ -210,17 +215,17 @@ export function BookingFlow() {
                 description="We only need the essentials to secure your visit."
               >
                 <div className="grid gap-5 md:grid-cols-2">
-                  <Field label="Full name" error={form.formState.errors.patientName?.message}>
-                    <Input {...form.register("patientName")} placeholder="Jordan Smith" />
+                  <Field label="Full name" error={form.formState.errors.patientName?.message} htmlFor="patientName">
+                    <Input id="patientName" {...form.register("patientName")} placeholder="Jordan Smith" autoComplete="name" />
                   </Field>
-                  <Field label="Email" error={form.formState.errors.email?.message}>
-                    <Input {...form.register("email")} placeholder="jordan@example.com" />
+                  <Field label="Email" error={form.formState.errors.email?.message} htmlFor="email">
+                    <Input id="email" {...form.register("email")} type="email" placeholder="jordan@example.com" autoComplete="email" />
                   </Field>
-                  <Field label="Phone" error={form.formState.errors.phone?.message}>
-                    <Input {...form.register("phone")} placeholder="(555) 123-4567" />
+                  <Field label="Phone" error={form.formState.errors.phone?.message} htmlFor="phone">
+                    <Input id="phone" {...form.register("phone")} type="tel" placeholder="(555) 123-4567" autoComplete="tel" />
                   </Field>
-                  <Field label="Visit notes" error={form.formState.errors.notes?.message}>
-                    <Textarea {...form.register("notes")} placeholder="Anything you want the care team to know ahead of time" className="min-h-12" />
+                  <Field label="Visit notes (optional)" error={form.formState.errors.notes?.message} htmlFor="notes">
+                    <Textarea id="notes" {...form.register("notes")} placeholder="Anything you want the care team to know ahead of time" className="min-h-12" />
                   </Field>
                 </div>
               </StepCard>
@@ -229,18 +234,21 @@ export function BookingFlow() {
             {step === 4 ? (
               <StepCard
                 title="Appointment confirmed"
-                description="A polished confirmation state for the template and a clear handoff to future backend wiring."
+                description="You'll receive an email confirmation shortly. We look forward to seeing you."
               >
-                <div className="rounded-[1.75rem] border border-teal-200 bg-teal-50 p-6">
-                  <div className="text-lg font-semibold text-teal-900">
+                <div className="rounded-[1.75rem] border border-teal-200 bg-teal-50 p-6 dark:border-teal-900 dark:bg-teal-950/60">
+                  <div className="text-lg font-semibold text-teal-900 dark:text-teal-100">
                     {submitted?.patientName || "Patient"} is booked with {selectedDoctor?.name || "your clinician"}.
                   </div>
-                  <div className="mt-3 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
-                    <div>Specialty: {submitted?.specialty}</div>
-                    <div>Date: {submitted?.date}</div>
-                    <div>Time: {submitted?.time}</div>
-                    <div>Email: {submitted?.email}</div>
+                  <div className="mt-3 grid gap-3 text-sm text-slate-600 md:grid-cols-2 dark:text-slate-400">
+                    <div><span className="font-semibold text-slate-700 dark:text-slate-300">Specialty:</span> {submitted?.specialty}</div>
+                    <div><span className="font-semibold text-slate-700 dark:text-slate-300">Date:</span> {submitted?.date}</div>
+                    <div><span className="font-semibold text-slate-700 dark:text-slate-300">Time:</span> {submitted?.time}</div>
+                    <div><span className="font-semibold text-slate-700 dark:text-slate-300">Email:</span> {submitted?.email}</div>
                   </div>
+                  <p className="mt-4 text-sm text-teal-700 dark:text-teal-400">
+                    A confirmation email has been dispatched. SMS reminders will be sent 24 hours before your appointment.
+                  </p>
                 </div>
               </StepCard>
             ) : null}
@@ -251,7 +259,7 @@ export function BookingFlow() {
           <Button
             type="button"
             variant="outline"
-            className="h-11 rounded-full border-slate-200 px-5 text-sm"
+            className="h-11 rounded-full border-slate-200 px-5 text-sm dark:border-slate-700 dark:text-slate-300"
             onClick={back}
             disabled={step === 0}
           >
@@ -259,19 +267,19 @@ export function BookingFlow() {
           </Button>
           <div className="flex gap-3">
             {step < 3 ? (
-              <Button type="button" className="h-11 rounded-full bg-teal-700 px-6 text-sm hover:bg-teal-800" onClick={next}>
+              <Button type="button" className="h-11 rounded-full bg-teal-700 px-6 text-sm hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500" onClick={next}>
                 Continue
               </Button>
             ) : null}
             {step === 3 ? (
-              <Button type="submit" className="h-11 rounded-full bg-teal-700 px-6 text-sm hover:bg-teal-800">
+              <Button type="submit" className="h-11 rounded-full bg-teal-700 px-6 text-sm hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500">
                 Confirm Appointment
               </Button>
             ) : null}
             {step === 4 ? (
               <Button
                 type="button"
-                className="h-11 rounded-full bg-teal-700 px-6 text-sm hover:bg-teal-800"
+                className="h-11 rounded-full bg-teal-700 px-6 text-sm hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500"
                 onClick={() => {
                   form.reset();
                   setSubmitted(null);
@@ -300,8 +308,8 @@ function StepCard({
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-4xl text-teal-950">{title}</h2>
-        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">{description}</p>
+        <h2 className="text-4xl text-teal-950 dark:text-teal-50">{title}</h2>
+        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-400">{description}</p>
       </div>
       {children}
     </div>
@@ -323,7 +331,9 @@ function SelectablePill({
       onClick={onClick}
       className={cn(
         "rounded-2xl border px-4 py-3 text-sm font-semibold transition",
-        active ? "border-teal-700 bg-teal-700 text-white" : "border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:bg-teal-50",
+        active
+          ? "border-teal-700 bg-teal-700 text-white dark:border-teal-500 dark:bg-teal-600"
+          : "border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:bg-teal-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-teal-700 dark:hover:bg-teal-950/50",
       )}
     >
       {children}
@@ -334,18 +344,22 @@ function SelectablePill({
 function Field({
   label,
   error,
+  htmlFor,
   children,
 }: {
   label: string;
   error?: string;
+  htmlFor: string;
   children: React.ReactNode;
 }) {
   return (
-    <label className="block">
-      <div className="mb-2 text-sm font-semibold text-slate-700">{label}</div>
+    <div>
+      <label htmlFor={htmlFor} className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+        {label}
+      </label>
       {children}
-      {error ? <div className="mt-2 text-sm text-rose-600">{error}</div> : null}
-    </label>
+      {error ? <div role="alert" className="mt-2 text-sm text-rose-600 dark:text-rose-400">{error}</div> : null}
+    </div>
   );
 }
 
@@ -362,15 +376,18 @@ function DoctorChoice({
     <button
       type="button"
       onClick={onSelect}
+      aria-pressed={selected}
       className={cn(
         "rounded-[1.75rem] border p-5 text-left transition",
-        selected ? "border-teal-700 bg-teal-50 shadow-lg shadow-teal-100" : "border-slate-200 bg-white hover:border-teal-200",
+        selected
+          ? "border-teal-700 bg-teal-50 shadow-lg shadow-teal-100 dark:border-teal-500 dark:bg-teal-950/60 dark:shadow-teal-950"
+          : "border-slate-200 bg-white hover:border-teal-200 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-teal-700",
       )}
     >
-      <div className="text-lg font-semibold text-slate-900">{doctor.name}</div>
-      <div className="mt-1 text-sm text-teal-700">{doctor.experience}</div>
-      <p className="mt-3 text-sm leading-7 text-slate-600">{doctor.bio}</p>
-      <div className="mt-4 text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{doctor.name}</div>
+      <div className="mt-1 text-sm text-teal-700 dark:text-teal-400">{doctor.experience}</div>
+      <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-400">{doctor.bio}</p>
+      <div className="mt-4 text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase dark:text-slate-400">
         {doctor.languages.join(" • ")}
       </div>
     </button>
