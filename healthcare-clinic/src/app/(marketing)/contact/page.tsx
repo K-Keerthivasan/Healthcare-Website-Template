@@ -1,5 +1,6 @@
 import { ContactForm } from "@/components/marketing/contact-form";
 import { Badge } from "@/components/ui/badge";
+import type { Icon } from "@phosphor-icons/react";
 import { Clock, MapPin, Phone, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = { title: "Contact" };
@@ -70,7 +71,7 @@ function InfoCard({
   title,
   lines,
 }: {
-  Icon: React.ComponentType<{ size?: number; weight?: string; className?: string; "aria-hidden"?: string }>;
+  Icon: Icon;
   title: string;
   lines: string[];
 }) {
