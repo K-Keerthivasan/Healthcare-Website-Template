@@ -88,16 +88,16 @@ export function BookingFlow() {
     <div className="surface overflow-hidden dark:border-slate-700/60 dark:bg-slate-900/80">
       {/* Step indicator */}
       <div className="border-b border-teal-100 bg-linear-to-r from-teal-50 to-white px-6 py-6 sm:px-8 dark:border-teal-900/50 dark:from-teal-950/40 dark:to-slate-900">
-        <ol className="grid gap-3 md:grid-cols-5" aria-label="Booking steps">
+        <ol className="grid grid-cols-5 gap-2" aria-label="Booking steps">
           {steps.map((label, index) => {
             const active = index === step;
             const complete = index < step;
             return (
-              <li key={label} className="flex items-center gap-3">
+              <li key={label} className="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
                 <div
                   aria-current={active ? "step" : undefined}
                   className={cn(
-                    "flex size-10 items-center justify-center rounded-full border text-sm font-bold",
+                    "flex size-8 shrink-0 items-center justify-center rounded-full border text-sm font-bold sm:size-10",
                     active || complete
                       ? "border-teal-700 bg-teal-700 text-white dark:border-teal-500 dark:bg-teal-600"
                       : "border-slate-200 bg-white text-slate-400 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-500",
@@ -106,7 +106,7 @@ export function BookingFlow() {
                   {index + 1}
                 </div>
                 <div className={cn(
-                  "text-sm font-semibold",
+                  "hidden text-sm font-semibold sm:block",
                   active || complete ? "text-teal-800 dark:text-teal-300" : "text-slate-400 dark:text-slate-500",
                 )}>{label}</div>
               </li>

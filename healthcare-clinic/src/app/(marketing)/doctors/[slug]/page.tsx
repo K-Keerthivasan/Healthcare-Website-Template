@@ -30,10 +30,10 @@ export default async function DoctorProfilePage({
   return (
     <main id="main-content" className="shell py-14 sm:py-20">
       <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
-        <DoctorAvatar src={doctor.photoUrl} alt={doctor.name} className="min-h-[560px]" />
+        <DoctorAvatar src={doctor.photoUrl} alt={doctor.name} className="min-h-[320px] lg:min-h-[560px]" />
         <div className="surface p-8 sm:p-10 dark:border-slate-700/60 dark:bg-slate-900/80">
           <Badge>{doctor.specialty}</Badge>
-          <h1 className="mt-5 text-5xl text-teal-950 sm:text-6xl dark:text-teal-50">{doctor.name}</h1>
+          <h1 className="mt-5 text-4xl text-teal-950 sm:text-5xl lg:text-6xl dark:text-teal-50">{doctor.name}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-400">{doctor.bio}</p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">

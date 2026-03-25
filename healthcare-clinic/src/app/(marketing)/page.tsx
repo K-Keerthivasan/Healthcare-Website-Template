@@ -30,7 +30,7 @@ export default function HomePage() {
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="surface overflow-hidden p-8 sm:p-12 dark:border-slate-700/60 dark:bg-slate-900/80">
             <Badge>Fresh Clinical Trust</Badge>
-            <h1 className="mt-6 max-w-3xl text-5xl leading-tight text-teal-950 sm:text-7xl dark:text-teal-50">
+            <h1 className="mt-6 max-w-3xl text-4xl leading-tight text-teal-950 sm:text-5xl lg:text-7xl dark:text-teal-50">
               Your Health, Our Priority
             </h1>
             <p className="section-copy mt-6 dark:text-slate-400">
@@ -112,7 +112,7 @@ export default function HomePage() {
             <Link href="/doctors">View all doctors</Link>
           </Button>
         </div>
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featuredDoctors.map((doctor) => (
             <article key={doctor.id} className="surface overflow-hidden dark:border-slate-700/60 dark:bg-slate-900/80">
               <DoctorAvatar src={doctor.photoUrl} alt={doctor.name} className="min-h-[280px]" />
@@ -131,7 +131,7 @@ export default function HomePage() {
       </section>
 
       <section className="shell py-10 sm:py-14">
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
             <article key={testimonial.name} className="surface p-6 dark:border-slate-700/60 dark:bg-slate-900/80">
               <div className="text-5xl text-teal-200 dark:text-teal-800">"</div>

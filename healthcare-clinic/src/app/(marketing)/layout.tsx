@@ -8,7 +8,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       {children}
       <footer className="border-t border-slate-200/70 bg-white/80 dark:border-slate-700/70 dark:bg-slate-900/90">
         <div className="shell py-12">
-          <div className="grid gap-8 md:grid-cols-[1fr_auto_auto_auto]">
+          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-[1fr_auto_auto_auto]">
             <div>
               <div className="font-heading text-2xl text-teal-900 dark:text-teal-100">Harbor Health Clinic</div>
               <p className="mt-2 max-w-xs text-sm text-slate-500 dark:text-slate-400">

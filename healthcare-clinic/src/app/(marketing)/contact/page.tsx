@@ -10,7 +10,7 @@ export default function ContactPage() {
     <main id="main-content" className="shell py-14 sm:py-20">
       <div className="mb-12 max-w-3xl">
         <Badge>Contact</Badge>
-        <h1 className="mt-5 text-5xl text-teal-950 sm:text-6xl dark:text-teal-50">
+        <h1 className="mt-5 text-4xl text-teal-950 sm:text-5xl lg:text-6xl dark:text-teal-50">
           Get in touch
         </h1>
         <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-400">

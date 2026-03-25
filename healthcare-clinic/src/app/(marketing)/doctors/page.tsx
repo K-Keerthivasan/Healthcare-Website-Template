@@ -14,7 +14,7 @@ export default function DoctorsPage() {
     <main id="main-content" className="shell py-14 sm:py-20">
       <div className="mb-10 max-w-3xl">
         <Badge>Doctors</Badge>
-        <h1 className="mt-5 text-5xl text-teal-950 sm:text-6xl dark:text-teal-50">Meet the care team</h1>
+        <h1 className="mt-5 text-4xl text-teal-950 sm:text-5xl lg:text-6xl dark:text-teal-50">Meet the care team</h1>
         <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-400">
           Six physicians across three specialties, designed to feel premium, approachable, and production-ready.
         </p>
@@ -30,7 +30,7 @@ export default function DoctorsPage() {
             >
               {specialty}
             </h2>
-            <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {group.map((doctor) => (
                 <article key={doctor.id} className="surface overflow-hidden dark:border-slate-700/60 dark:bg-slate-900/80">
                   <DoctorAvatar src={doctor.photoUrl} alt={doctor.name} className="min-h-[320px]" />
