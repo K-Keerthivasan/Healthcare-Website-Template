@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { DemoBanner } from "@/components/marketing/demo-banner";
 import { PublicNav } from "@/components/marketing/public-nav";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
+      <DemoBanner />
       <PublicNav />
       {children}
       <footer className="border-t border-slate-200/70 bg-white/80 dark:border-slate-700/70 dark:bg-slate-900/90">

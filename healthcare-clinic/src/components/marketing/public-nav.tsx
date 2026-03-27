@@ -22,7 +22,10 @@ export function PublicNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur dark:border-slate-700/70 dark:bg-slate-900/90">
+    <header
+      className="sticky z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur dark:border-slate-700/70 dark:bg-slate-900/90"
+      style={{ top: "var(--k2-demo-strip-height, 0px)" }}
+    >
       <div className="shell flex h-20 items-center justify-between gap-8">
         <Link href="/" className="flex items-center gap-3" aria-label="Harbor Health – home">
           <div className="flex size-11 items-center justify-center rounded-2xl bg-teal-700 text-lg font-black text-white dark:bg-teal-600">
